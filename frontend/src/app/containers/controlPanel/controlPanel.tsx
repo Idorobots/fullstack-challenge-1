@@ -1,5 +1,6 @@
 import { observer } from "mobx-observer";
 import * as preact from "preact";
+import { UserActions } from "../../actions/user";
 import { Button } from "../../components/button/button";
 import { Field } from "../../components/field/field";
 import { MainStore } from "../../store/main";
@@ -11,6 +12,13 @@ interface Props {
 
 @observer
 export class ControlPanel extends preact.Component<Props, any> {
+  private userActions: UserActions;
+
+  constructor(props: Props) {
+    super(props);
+    this.userActions = new UserActions(props.store);
+  }
+
   onClick() {
     console.log("Control panel clicked!");
   }
@@ -22,8 +30,8 @@ export class ControlPanel extends preact.Component<Props, any> {
           <Field contents={this.props.store.selectedField} />
         </div>
         { this.props.store.availableFields.map((field) => (
-            // TODO Update the selected field.
-            <Field contents={field} onClick={this.onClick} />
+            <Field contents={field}
+                   onClick={() => this.userActions.fieldSelected(field)} />
           ))
         }
         <Button onClick={this.onClick} />
