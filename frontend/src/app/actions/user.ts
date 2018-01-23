@@ -9,8 +9,8 @@ export class UserActions {
   }
 
   @action.bound
-  mainButtonClicked() {
-    console.log("Button clicked!");
+  boardClicked(x: number, y: number) {
+    this.store.board[y * this.store.boardDim.x + x] = this.store.selectedField;
   }
 
 }

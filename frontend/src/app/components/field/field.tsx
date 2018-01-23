@@ -9,6 +9,8 @@ interface Props {
 
 export const Field = (props: Props) => (
   <div className={styles.fieldWrapper}>
-    { props.contents.type }
+    <div onClick={props.onClick}>
+      { props.contents.type }
+    </div>
   </div>
 );

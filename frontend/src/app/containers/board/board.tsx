@@ -1,5 +1,6 @@
 import { observer } from "mobx-observer";
 import * as preact from "preact";
+import { UserActions } from "../../actions/user";
 import { Field } from "../../components/field/field";
 import { MainStore } from "../../store/main";
 import * as styles from "./board.css";
@@ -10,11 +11,14 @@ interface Props {
 
 @observer
 export class Board extends preact.Component<Props, any> {
-  onClick() {
-    console.log("Board clicked!");
+  private userActions: UserActions;
+
+  constructor(props: Props) {
+    super(props);
+    this.userActions = new UserActions(props.store);
   }
 
-  iota(n: number): Array<number> {
+  private iota(n: number): Array<number> {
     return Array.from(new Array(n).keys());
   }
 
@@ -26,11 +30,10 @@ export class Board extends preact.Component<Props, any> {
         { this.iota(this.props.store.boardDim.y).map((y) => (
             <tr>
               { this.iota(dimX).map((x) => (
-                // TODO Update the board contents.
                 (
                   <td>
                     <Field contents={this.props.store.board[y * dimX + x]}
-                           onClick={this.onClick} />
+                           onClick={() => this.userActions.boardClicked(x, y)} />
                   </td>
                 )
               ))
