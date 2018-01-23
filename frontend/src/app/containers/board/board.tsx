@@ -17,11 +17,11 @@ export class Board extends preact.Component<Props, any> {
   render () {
     return (
       <div className={styles.boardWrapper}>
-        Board.
-        <Field onClick={this.onClick} />
-        <Field onClick={this.onClick} />
-        <Field onClick={this.onClick} />
-        <Field onClick={this.onClick} />
+        { this.props.store.board.map((field) => (
+            // TODO Update the board contents.
+            <Field contents={field} onClick={this.onClick} />
+          ))
+        }
       </div>
     );
   }

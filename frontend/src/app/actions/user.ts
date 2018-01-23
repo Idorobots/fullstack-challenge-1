@@ -1,7 +1,7 @@
 import { action } from "mobx";
-import { MainStore, mainStore } from "../store/main";
+import { MainStore } from "../store/main";
 
-class UserActions {
+export class UserActions {
   store: MainStore;
 
   constructor(store: MainStore) {
@@ -10,9 +10,7 @@ class UserActions {
 
   @action.bound
   mainButtonClicked() {
-    this.store.duckIsVisible = !this.store.duckIsVisible;
+    console.log("Button clicked!");
   }
 
 }
-
-export const userActions = new UserActions(mainStore);

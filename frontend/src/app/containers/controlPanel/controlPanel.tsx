@@ -18,9 +18,14 @@ export class ControlPanel extends preact.Component<Props, any> {
   render () {
     return (
       <div className={styles.panelWrapper}>
-        Control panel.
-        <Field />
-        <Field />
+        <div className={styles.selected}>
+          <Field contents={this.props.store.selectedField} />
+        </div>
+        { this.props.store.availableFields.map((field) => (
+            // TODO Update the selected field.
+            <Field contents={field} onClick={this.onClick} />
+          ))
+        }
         <Button onClick={this.onClick} />
       </div>
     );
