@@ -19,10 +19,6 @@ export class ControlPanel extends preact.Component<Props, any> {
     this.userActions = new UserActions(props.store);
   }
 
-  onClick() {
-    console.log("Control panel clicked!");
-  }
-
   render () {
     return (
       <div className={styles.panelWrapper}>
@@ -34,7 +30,13 @@ export class ControlPanel extends preact.Component<Props, any> {
                    onClick={() => this.userActions.fieldSelected(field)} />
           ))
         }
-        <Button onClick={this.onClick} />
+        <Button value="Clear"
+                onClick={() => this.userActions.boardCleared()}
+                isEnabled={true} />
+
+        <Button value="Solve!"
+                onClick={() => console.log("Path finding not yet implemented!")}
+                isEnabled={false} />
       </div>
     );
   }

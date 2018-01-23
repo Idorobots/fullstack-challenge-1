@@ -30,8 +30,12 @@ export class MainStore {
       y: dimY
     };
 
+    this.clearBoard(fields[0]);
+  }
+
+  clearBoard(field: Field) {
     // NOTE Initializes the board to the first one of the available fileds.
-    this.board = Array.from(new Array(dimX * dimY), (val, index) => fields[0]);
+    this.board = Array.from(new Array(this.boardDim.x * this.boardDim.y), (val, index) => field);
   }
 
 }

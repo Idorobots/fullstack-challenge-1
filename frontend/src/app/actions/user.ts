@@ -19,4 +19,9 @@ export class UserActions {
     this.store.selectedField = field;
   }
 
+  @action.bound
+  boardCleared() {
+    this.store.clearBoard(this.store.availableFields[0]);
+  }
+
 }
