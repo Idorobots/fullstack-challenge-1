@@ -17,11 +17,7 @@
       justify-items: center;
 
       & .board-field {
-        min-width: 50px;
-        min-height: 50px;
-        border-style: solid;
-        border-width: 1px;
-        border-color: lightgray;
+        cursor: pointer;
       }
     }
   }

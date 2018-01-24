@@ -22,16 +22,18 @@ export class ControlPanel extends preact.Component<Props, any> {
   render () {
     return (
       <div className={styles.panelWrapper}>
-        <div className={styles.controlWrapper + " " + styles.selected}>
-          <Field contents={this.props.store.selectedField} />
-        </div>
+        <Field contents={this.props.store.selectedField}
+               isSelected={true} />
+        <div className={styles.separator} />
         { this.props.store.availableFields.map((field) => (
             <div className={styles.controlWrapper}>
               <Field contents={field}
-                     onClick={() => this.userActions.fieldSelected(field)} />
+                     onClick={() => this.userActions.fieldSelected(field)}
+                     isSelected={false} />
             </div>
           ))
         }
+        <div className={styles.separator} />
         <div className={styles.controlWrapper}>
           <Button value="Clear"
                   onClick={() => this.userActions.boardCleared()}

@@ -1,2 +1,18 @@
+:root {
+  --selected-color: lightgreen;
+  --field-size: 50px;
+  --border-color: lightgray;
+}
+
 .field-wrapper {
+  min-width: var(--field-size);
+  min-height: var(--field-size);
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--border-color);
+}
+
+.selected {
+  background-color: var(--selected-color);
 }

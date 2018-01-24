@@ -1,2 +1,5 @@
 .button-wrapper {
+  & > button {
+    cursor: pointer;
+  }
 }

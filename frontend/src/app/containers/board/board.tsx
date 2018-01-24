@@ -32,7 +32,8 @@ export class Board extends preact.Component<Props, any> {
                 (
                   <td className={styles.boardField}>
                     <Field contents={this.props.store.getBoard(x, y)}
-                           onClick={() => this.userActions.boardClicked(x, y)} />
+                           onClick={() => this.userActions.boardClicked(x, y)}
+                           isSelected={false} />
                   </td>
                 )
               ))
