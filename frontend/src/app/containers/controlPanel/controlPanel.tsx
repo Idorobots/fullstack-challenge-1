@@ -22,21 +22,26 @@ export class ControlPanel extends preact.Component<Props, any> {
   render () {
     return (
       <div className={styles.panelWrapper}>
-        <div className={styles.selected}>
+        <div className={styles.controlWrapper + " " + styles.selected}>
           <Field contents={this.props.store.selectedField} />
         </div>
         { this.props.store.availableFields.map((field) => (
-            <Field contents={field}
-                   onClick={() => this.userActions.fieldSelected(field)} />
+            <div className={styles.controlWrapper}>
+              <Field contents={field}
+                     onClick={() => this.userActions.fieldSelected(field)} />
+            </div>
           ))
         }
-        <Button value="Clear"
-                onClick={() => this.userActions.boardCleared()}
-                isEnabled={true} />
-
-        <Button value="Solve!"
-                onClick={() => console.log("Path finding not yet implemented!")}
-                isEnabled={this.props.store.solveEnabled} />
+        <div className={styles.controlWrapper}>
+          <Button value="Clear"
+                  onClick={() => this.userActions.boardCleared()}
+                  isEnabled={true} />
+        </div>
+        <div className={styles.controlWrapper}>
+          <Button value="Solve!"
+                  onClick={() => console.log("Path finding not yet implemented!")}
+                  isEnabled={this.props.store.solveEnabled} />
+        </div>
       </div>
     );
   }
