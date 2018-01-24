@@ -1,5 +1,6 @@
 import * as preact from "preact";
 import { MainContainer } from "./containers/main/mainContainer";
+import "./main.css";
 import { MainStore } from "./store/main";
 
 type Config = {
