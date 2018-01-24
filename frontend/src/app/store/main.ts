@@ -8,6 +8,9 @@ export interface Field {
 }
 
 export class MainStore {
+  @observable
+  error?: string;
+
   availableFields: Array<Field>;
 
   @observable
@@ -22,6 +25,8 @@ export class MainStore {
   board: Array<Field>;
 
   constructor(dimX: number, dimY: number, fields: Array<Field>) {
+    this.error = undefined;
+
     this.availableFields = fields;
     this.selectedField = fields[0];
 
@@ -38,4 +43,17 @@ export class MainStore {
     this.board = Array.from(new Array(this.boardDim.x * this.boardDim.y), (val, index) => field);
   }
 
+  setBoard(x: number, y: number, field: Field) {
+    this.board[y * this.boardDim.x + x] = field;
+  }
+
+  getBoard(x: number, y: number): Field {
+    return this.board[y * this.boardDim.x + x];
+  }
+
+  checkSanity(): boolean {
+    const starts = this.board.filter((field) => field.type === "start");
+    const ends = this.board.filter((field) => field.type === "end");
+    return starts.length <= 1 && ends.length <= 1;
+  }
 }

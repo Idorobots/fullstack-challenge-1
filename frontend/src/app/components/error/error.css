@@ -1,0 +1,7 @@
+.error-wrapper {
+  color: red;
+
+  & .hidden {
+    display: none;
+  }
+}

@@ -23,16 +23,15 @@ export class Board extends preact.Component<Props, any> {
   }
 
   render () {
-    const dimX = this.props.store.boardDim.x;
     return (
       <div className={styles.boardWrapper}>
         <table>
         { this.iota(this.props.store.boardDim.y).map((y) => (
             <tr>
-              { this.iota(dimX).map((x) => (
+              { this.iota(this.props.store.boardDim.x).map((x) => (
                 (
                   <td>
-                    <Field contents={this.props.store.board[y * dimX + x]}
+                    <Field contents={this.props.store.getBoard(x, y)}
                            onClick={() => this.userActions.boardClicked(x, y)} />
                   </td>
                 )

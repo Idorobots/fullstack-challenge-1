@@ -10,8 +10,13 @@ export class UserActions {
 
   @action.bound
   boardClicked(x: number, y: number) {
-    // TODO Ensure that only a single start & stop can be placed.
-    this.store.board[y * this.store.boardDim.x + x] = this.store.selectedField;
+    const oldValue = this.store.getBoard(x, y);
+    this.store.setBoard(x, y, this.store.selectedField);
+
+    if (!this.store.checkSanity()) {
+      this.store.setBoard(x, y, oldValue);
+      this.errored("I can't let you do that...");
+    }
   }
 
   @action.bound
@@ -22,6 +27,14 @@ export class UserActions {
   @action.bound
   boardCleared() {
     this.store.clearBoard(this.store.availableFields[0]);
+  }
+
+  @action.bound
+  errored(message: string) {
+    this.store.error = message;
+    setTimeout(() => {
+      this.store.error = undefined;
+    }, 3000);
   }
 
 }
