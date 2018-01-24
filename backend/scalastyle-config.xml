@@ -106,7 +106,7 @@
  <check level="error" class="org.scalastyle.scalariform.NoCloneChecker" enabled="true"/>
  <check level="error" class="org.scalastyle.scalariform.NoFinalizeChecker" enabled="true"/>
  <check level="error" class="org.scalastyle.scalariform.NotImplementedErrorUsage" enabled="true"/>
- <check level="error" class="org.scalastyle.scalariform.ReturnChecker" enabled="true"/>
+ <check level="error" class="org.scalastyle.scalariform.ReturnChecker" enabled="false"/>
  <check level="error" class="org.scalastyle.scalariform.NullChecker" enabled="true"/>
  <check level="error" class="org.scalastyle.scalariform.ProcedureDeclarationChecker" enabled="true"/>
  <check level="error" class="org.scalastyle.scalariform.PublicMethodsHaveTypeChecker" enabled="true">
@@ -128,7 +128,7 @@
  <!-- Functional Programming FTW -->
  <check level="error" class="org.scalastyle.scalariform.VarFieldChecker" enabled="true"/>
  <check level="error" class="org.scalastyle.scalariform.VarLocalChecker" enabled="true"/>
- <check level="error" class="org.scalastyle.scalariform.WhileChecker" enabled="true"/>
+ <check level="error" class="org.scalastyle.scalariform.WhileChecker" enabled="false"/>
 
  <!-- Space checks -->
  <check level="error" class="org.scalastyle.scalariform.SpacesAfterPlusChecker" enabled="true"/>

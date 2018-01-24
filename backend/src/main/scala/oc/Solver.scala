@@ -62,14 +62,14 @@ class Solver(implicit ectx: ExecutionContext) {
   // NOTE Simple 8-way neighbourhood with wormholes.
   def neighbours(board: PrecomputedBoard, field: PrecomputedField): Seq[PrecomputedField] = {
     val defaultNeighbours = getNeighbours(board, Seq(
-        Coords(field.coords.x-1, field.coords.y-1),
-        Coords(field.coords.x, field.coords.y-1),
-        Coords(field.coords.x+1, field.coords.y-1),
-        Coords(field.coords.x-1, field.coords.y),
-        Coords(field.coords.x+1, field.coords.y),
-        Coords(field.coords.x-1, field.coords.y+1),
-        Coords(field.coords.x, field.coords.y+1),
-        Coords(field.coords.x+1, field.coords.y+1)
+        Coords(field.coords.x - 1, field.coords.y - 1),
+        Coords(field.coords.x, field.coords.y - 1),
+        Coords(field.coords.x + 1, field.coords.y - 1),
+        Coords(field.coords.x - 1, field.coords.y),
+        Coords(field.coords.x + 1, field.coords.y),
+        Coords(field.coords.x - 1, field.coords.y + 1),
+        Coords(field.coords.x, field.coords.y + 1),
+        Coords(field.coords.x + 1, field.coords.y + 1)
     ))
 
     field.field.`type` match {
