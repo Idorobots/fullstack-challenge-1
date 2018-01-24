@@ -52,3 +52,8 @@ docker run -p 8080:80 -e BACKEND_URL="localhost:8081" obstacle-course-fe:latest
 ```
 
 Alternatively, you can start a static file server inside of the `dist` directory instead of building a Docker image for the frontend.
+
+## Caveats
+Some liberties were taken during the development:
+
+- Frontend isn't responsive nor follows any coherent desings - I'm not much of a UI designer, so I didn't bother with the looks as much as with the inner workings down the stack.
