@@ -1,5 +1,6 @@
 import { action } from "mobx";
-import { Field, MainStore } from "../store/main";
+import { Field } from "../services/api";
+import { MainStore } from "../store/main";
 
 export class UserActions {
   store: MainStore;

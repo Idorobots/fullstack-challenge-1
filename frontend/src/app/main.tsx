@@ -1,42 +1,28 @@
 import * as preact from "preact";
 import { MainContainer } from "./containers/main/mainContainer";
 import "./main.css";
+import { ApiService } from "./services/api";
 import { MainStore } from "./store/main";
 
 type Config = {
   backendUrl: string
 };
 
-export function onLoad(config: Config) {
+export function onLoad(config: Config): Promise<void> {
   console.log("App successfully loaded!", config);
+
   const container = document.createElement("div");
   document.body.appendChild(container);
 
-  // TODO Could be initialized on backend.
-  const mainStore = new MainStore(20, 15, [{
-    type: "empty",
-    weight: 0
-  }, {
-    type: "start",
-    weight: 0
-  }, {
-    type: "end",
-    weight: 0
-  }, {
-    type: "gravel",
-    weight: 0
-  }, {
-    type: "boulder",
-    weight: 0
-  }, {
-    type: "wh_entrance",
-    weight: 0
-  }, {
-    type: "wh_exit",
-    weight: 0
-  }]);
+  const api = new ApiService(config.backendUrl);
 
-  preact.render(<MainContainer store={mainStore}/>, container);
+  return api.getConfig().then((boardConfig) => {
+    const mainStore = new MainStore(boardConfig.boardDim, boardConfig.availableFields);
+    preact.render(<MainContainer store={mainStore} api={api} />, container);
+  }).catch((error) => {
+    // TODO Display the error message.
+    console.error(error);
+  });
 }
 
 // Install the app entry point.

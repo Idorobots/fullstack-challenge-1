@@ -1,25 +1,18 @@
 import { observable } from "mobx";
-
-export type FieldType = "start" | "end" | "empty" | "gravel" | "boulder" | "wh_entrance" | "wh_exit";
-
-export interface Field {
-  type: FieldType;
-  weight: number;
-}
+import { Dim, Field } from "../services/api";
 
 export class MainStore {
   @observable
   error?: string;
 
+  @observable
   availableFields: Array<Field>;
 
   @observable
   selectedField: Field;
 
-  boardDim: {
-    x: number;
-    y: number;
-  };
+  @observable
+  boardDim: Dim;
 
   @observable
   board: Array<Field>;
@@ -27,20 +20,15 @@ export class MainStore {
   @observable
   solveEnabled: boolean;
 
-  constructor(dimX: number, dimY: number, fields: Array<Field>) {
+  constructor(dim: Dim, fields: Array<Field>) {
     this.error = undefined;
 
     this.availableFields = fields;
     this.selectedField = fields[0];
-
-    this.boardDim = {
-      x: dimX,
-      y: dimY
-    };
+    this.boardDim = dim;
+    this.solveEnabled = false;
 
     this.clearBoard(fields[0]);
-
-    this.solveEnabled = false;
   }
 
   clearBoard(field: Field) {

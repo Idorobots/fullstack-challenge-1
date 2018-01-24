@@ -1,9 +1,10 @@
-import { Field, MainStore } from "../store/main";
+import { Field } from "../services/api";
+import { MainStore } from "./main";
 
 describe("MainStore", () => {
   it("sanity must be maintainable", () => {
     const fields: Array<Field> = [{ type: "empty", weight: 1}, {type: "start", weight: 0}, {type: "end", weight: 0}];
-    const store = new MainStore(2, 2, fields);
+    const store = new MainStore({ x: 2, y: 2 }, fields);
 
     expect(store.checkSanity()).toEqual(true);
 
@@ -22,7 +23,7 @@ describe("MainStore", () => {
 
   it("allow checking solvability", () => {
     const fields: Array<Field> = [{ type: "empty", weight: 1}, {type: "start", weight: 0}, {type: "end", weight: 0}];
-    const store = new MainStore(2, 2, fields);
+    const store = new MainStore({ x: 2, y: 2 }, fields);
 
     expect(store.hasStart()).toEqual(false);
     expect(store.hasEnd()).toEqual(false);

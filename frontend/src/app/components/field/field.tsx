@@ -1,5 +1,5 @@
 import * as preact from "preact";
-import { Field as FieldContents } from "../../store/main";
+import { Field as FieldContents } from "../../services/api";
 import * as styles from "./field.css";
 
 interface Props {

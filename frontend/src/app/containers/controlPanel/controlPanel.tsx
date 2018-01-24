@@ -3,11 +3,13 @@ import * as preact from "preact";
 import { UserActions } from "../../actions/user";
 import { Button } from "../../components/button/button";
 import { Field } from "../../components/field/field";
+import { ApiService } from "../../services/api";
 import { MainStore } from "../../store/main";
 import * as styles from "./controlPanel.css";
 
 interface Props {
   store: MainStore;
+  api: ApiService; // TODO Connect to the solve button.
 }
 
 @observer
