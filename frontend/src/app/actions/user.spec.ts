@@ -5,7 +5,8 @@ import { UserActions } from "./user";
 describe("UserActions", () => {
   it("board contents should update when clicked", () => {
     const fields: Array<Field> = [{ type: "empty", weight: 1}, {type: "gravel", weight: 5}];
-    const store = new MainStore({ x: 2, y: 2 }, fields);
+    const store = new MainStore();
+    store.setConfig({ boardDim: { x: 2, y: 2 }, availableFields: fields });
 
     expect(store.getBoard(1, 0)).toEqual(fields[0]);
 
@@ -18,7 +19,8 @@ describe("UserActions", () => {
 
   it("selected field should update when control panel is clicked", () => {
     const fields: Array<Field> = [{ type: "empty", weight: 1}, {type: "gravel", weight: 5}];
-    const store = new MainStore({ x: 2, y: 2 }, fields);
+    const store = new MainStore();
+    store.setConfig({ boardDim: { x: 2, y: 2 }, availableFields: fields });
 
     expect(store.selectedField).toEqual(fields[0]);
 
@@ -30,7 +32,8 @@ describe("UserActions", () => {
 
   it("user should be able to update the board", () => {
     const fields: Array<Field> = [{ type: "empty", weight: 1}, {type: "gravel", weight: 5}];
-    const store = new MainStore({ x: 2, y: 2 }, fields);
+    const store = new MainStore();
+    store.setConfig({ boardDim: { x: 2, y: 2 }, availableFields: fields });
     const actions = new UserActions(store);
 
     expect(store.selectedField).toEqual(fields[0]);
@@ -50,7 +53,8 @@ describe("UserActions", () => {
 
   it("board contents should reset when cleared", () => {
     const fields: Array<Field> = [{ type: "empty", weight: 1}, {type: "gravel", weight: 5}];
-    const store = new MainStore({ x: 2, y: 2 }, fields);
+    const store = new MainStore();
+    store.setConfig({ boardDim: { x: 2, y: 2 }, availableFields: fields });
 
     store.setBoard(1, 0, fields[1]);
     store.setBoard(0, 1, fields[1]);

@@ -15,10 +15,11 @@ export function onLoad(config: Config): Promise<void> {
   document.body.appendChild(container);
 
   const api = new ApiService(config.backendUrl);
+  const mainStore = new MainStore();
+  preact.render(<MainContainer store={mainStore} api={api} />, container);
 
   return api.getConfig().then((boardConfig) => {
-    const mainStore = new MainStore(boardConfig.boardDim, boardConfig.availableFields);
-    preact.render(<MainContainer store={mainStore} api={api} />, container);
+    mainStore.setConfig(boardConfig);
   }).catch((error) => {
     // TODO Display the error message.
     console.error(error);

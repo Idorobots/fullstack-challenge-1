@@ -1,7 +1,10 @@
 import { observable } from "mobx";
-import { Coords, Dim, Field } from "../services/api";
+import { Config, Coords, Dim, Field } from "../services/api";
 
 export class MainStore {
+  @observable
+  configLoaded: boolean;
+
   @observable
   error?: string;
 
@@ -23,16 +26,21 @@ export class MainStore {
   @observable
   solvedPath: Array<Coords>;
 
-  constructor(dim: Dim, fields: Array<Field>) {
+  constructor() {
+    this.configLoaded = false;
     this.error = undefined;
-
-    this.availableFields = fields;
-    this.selectedField = fields[0];
-    this.boardDim = dim;
+    this.availableFields = [];
+    this.selectedField = {
+      type: "empty",
+      weight: 0
+    };
+    this.boardDim = {
+      x: 0,
+      y: 0
+    };
+    this.board = [];
     this.solveEnabled = false;
     this.solvedPath = [];
-
-    this.clearBoard(fields[0]);
   }
 
   clearBoard(field: Field) {
@@ -60,5 +68,13 @@ export class MainStore {
 
   hasEnd(): boolean {
     return this.board.filter((field) => field.type === "end").length > 0;
+  }
+
+  setConfig(config: Config) {
+    this.configLoaded = true;
+    this.boardDim = config.boardDim;
+    this.availableFields = config.availableFields;
+    this.selectedField = this.availableFields[0];
+    this.clearBoard(this.availableFields[0]);
   }
 }
