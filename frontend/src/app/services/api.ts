@@ -61,6 +61,9 @@ export class ApiService {
   solve(dim: Dim, board: Array<Field>): Promise<Array<Coords>> {
     return fetch("//" + this.baseUrl + "/api/solve", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         boardDim: dim,
         board

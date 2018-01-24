@@ -28,8 +28,8 @@ scalacOptions ++= Seq(
   "-Ywarn-numeric-widen", "-Ywarn-unused", "-Ywarn-unused-import"
 )
 
-wartremoverErrors in (Compile, compile) ++= Warts.all
-wartremoverErrors in Test ++= Warts.allBut(Wart.NonUnitStatements)
+wartremoverErrors in (Compile, compile) ++= Warts.allBut(Wart.ImplicitParameter)
+wartremoverErrors in Test ++= Warts.allBut(Wart.NonUnitStatements, Wart.ImplicitParameter)
 
 coverageMinimum := 90
 coverageFailOnMinimum := false // FIXME Set to true

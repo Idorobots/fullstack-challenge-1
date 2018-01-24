@@ -9,14 +9,13 @@ import org.scalatest.{FunSpec, Matchers}
 
 class MainSpec extends FunSpec with Matchers with ScalatestRouteTest {
   describe("MainSpec") {
-    it("should respond to hello requests") {
+    it("should respond to status/ requests") {
       implicit val system: ActorSystem = ActorSystem("test")
       implicit val materializer: ActorMaterializer = ActorMaterializer()
       implicit val routes = Route.seal(Main.routes)
 
-      Get(s"/api/hello") ~> routes ~> check {
+      Get(s"/api/status") ~> routes ~> check {
         status shouldBe StatusCodes.OK
-        responseAs[String] shouldBe "[]"
       }
     }
 
