@@ -33,7 +33,7 @@ module.exports = {
 gulp.task("bundle", ["style-type-definitions", "lint"], () => {
   const prod = process.env.ENV === "prod";
   if (prod){
-    postcss.push(require('postcss-clean'));
+    postcss.push(require("cssnano"));
   }
   const bundle = browserify("src/app/main.tsx", { debug: !prod })
     .plugin(require("tsify"))

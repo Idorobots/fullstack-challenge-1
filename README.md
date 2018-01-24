@@ -58,8 +58,12 @@ Some liberties were taken during the development:
 
 - Frontend isn't responsive nor follows any coherent desings - I'm not much of a UI designer, so I didn't bother with the looks as much as with the inner workings down the stack.
 
+- Field & board configuration is served by the backend and can be changed fairly easily without changing the frontend client.
+
 - The A* implementation on the backend is written in an imperative way making it pretty ugly.
 
 - The default heuristic for the A* algorithm is not addmissible in presence of Worm Holes making it find sub-optimal paths. A second, "zero-distance" heuristic was provided, turning the A* into a Dijkstra variant searching for optimal paths (turned on with `HEURISTIC=zero` env parameter).
+
+- Sometimes paths look weird even though they are optimal - there is no penalty for moving diagonally.
 
 - The code is missing a lot of tests, that's mostly because of lack of time for this assignment.

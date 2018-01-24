@@ -34,7 +34,6 @@
     display: none;
   }
 
-
   & .spinner {
     width: 50px;
     height: 50px;
@@ -42,9 +41,9 @@
     border: 16px solid var(--spinner-circle);
     border-top: 16px solid var(--spinner-active);
     border-radius: 50%;
+
     animation: spin 2s linear infinite;
   }
-
 }
 
 @keyframes spin {
