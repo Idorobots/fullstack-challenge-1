@@ -37,19 +37,19 @@ export class ApiService {
           weight: 1
         }, {
           type: "start",
-          weight: 0
+          weight: 1
         }, {
           type: "end",
           weight: 1
         }, {
           type: "gravel",
-          weight: 2
+          weight: 5
         }, {
           type: "boulder",
           weight: 0
         }, {
           type: "wh_entrance",
-          weight: 0
+          weight: 1
         }, {
           type: "wh_exit",
           weight: 1

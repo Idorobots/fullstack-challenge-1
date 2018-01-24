@@ -54,7 +54,7 @@ class Solver(implicit ectx: ExecutionContext) {
   // FIXME Add cats.Eq instance for FieldType.
   @SuppressWarnings(Array("org.wartremover.warts.Equals"))
   private def getNeighbours(board: PrecomputedBoard, coords: Seq[Coords]): Seq[PrecomputedField] =
-    coords.map(coord => getNeighbour(board, coord.x, coord.y-1))
+    coords.map(coord => getNeighbour(board, coord.x, coord.y))
       .map(_.toList)
       .flatten
       .filter(_.field.`type` != FieldType.Boulder)
@@ -80,7 +80,7 @@ class Solver(implicit ectx: ExecutionContext) {
 
   // NOTE Plain distance heuristic. It's not addmisible in this case though.
   def estimate(field: PrecomputedField, goal: PrecomputedField): Double =
-    sqrt(pow((goal.coords.x - field.coords.x).toDouble, 2) + pow((goal.coords.y - goal.coords.y).toDouble, 2))
+    sqrt(pow((goal.coords.x - field.coords.x).toDouble, 2) + pow((goal.coords.y - field.coords.y).toDouble, 2))
 
   // FIXME Imperative style sux.
   @SuppressWarnings(Array(
