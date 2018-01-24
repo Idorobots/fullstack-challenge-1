@@ -19,7 +19,7 @@ class Solver(implicit ectx: ExecutionContext) {
   def indexToCoords(dims: Dim, index: Int): Coords =
     Coords(index % dims.x, index / dims.x)
 
-  // FIXME Add cats.Eq instance for FieldType & PrecomputedField
+  // FIXME Add cats.Eq instance for FieldType.
   @SuppressWarnings(Array("org.wartremover.warts.Equals"))
   def precompute(board: Board): Option[PrecomputedBoard] = {
     val fields = board.board.zipWithIndex.map {
@@ -44,12 +44,38 @@ class Solver(implicit ectx: ExecutionContext) {
     } yield path
   }
 
+  def getNeighbour(board: PrecomputedBoard, x: Long, y: Long): Option[PrecomputedField] =
+    if (x < 0 || y < 0 || x >= board.dims.x || y >= board.dims.y) {
+      None
+    } else {
+      Some(board.fields((y * board.dims.x + x).toInt))
+    }
+
+  // NOTE Simple 8-way neighbourhood with wormholes.
+  // FIXME Add cats.Eq instance for FieldType.
+  @SuppressWarnings(Array("org.wartremover.warts.Equals"))
+  def neighbours(board: PrecomputedBoard, field: PrecomputedField): Seq[PrecomputedField] =
+    field.field.`type` match {
+      case FieldType.WHEntrance => board.holes
+      case _ => Seq(
+        getNeighbour(board, field.coords.x-1, field.coords.y-1),
+        getNeighbour(board, field.coords.x, field.coords.y-1),
+        getNeighbour(board, field.coords.x+1, field.coords.y-1),
+        getNeighbour(board, field.coords.x-1, field.coords.y),
+        getNeighbour(board, field.coords.x+1, field.coords.y),
+        getNeighbour(board, field.coords.x-1, field.coords.y+1),
+        getNeighbour(board, field.coords.x, field.coords.y+1),
+        getNeighbour(board, field.coords.x+1, field.coords.y+1),
+      ).map(_.toList).flatten.filter(_.field.`type` != FieldType.Boulder)
+    }
+
   // NOTE Plain distance heuristic. It's not addmisible in this case though.
   def estimate(field: PrecomputedField, goal: PrecomputedField): Double =
     sqrt(pow((goal.coords.x - field.coords.x).toDouble, 2) + pow((goal.coords.y - goal.coords.y).toDouble, 2))
 
   // FIXME Imperative style sux.
   @SuppressWarnings(Array(
+    "org.wartremover.warts.Any",
     "org.wartremover.warts.Equals",
     "org.wartremover.warts.MutableDataStructures",
     "org.wartremover.warts.NonUnitStatements",
@@ -75,7 +101,7 @@ class Solver(implicit ectx: ExecutionContext) {
       val closed = scala.collection.mutable.Set.empty[PrecomputedField]
       val open = scala.collection.mutable.PriorityQueue(board.start)(Ordering.by {
         field => fScore(field)
-      })
+      }).reverse
 
       while (!open.isEmpty) {
         val curr = open.dequeue()
@@ -86,8 +112,21 @@ class Solver(implicit ectx: ExecutionContext) {
 
         closed += curr
 
-        // TODO Actually find the path.
+        neighbours(board, curr).foreach { neighbour =>
+          if (!closed.contains(neighbour)) {
+            if (!open.find(_ == neighbour).isDefined) {
+              open += neighbour
+            }
 
+            val score = gScore(curr) + neighbour.field.weight
+
+            if (score < gScore(neighbour)) {
+              cameFrom += (neighbour -> curr)
+              gScore += (neighbour -> score)
+              fScore += (neighbour -> (score + estimate(neighbour, board.end)))
+            }
+          }
+        }
       }
     return None
   }
