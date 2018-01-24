@@ -80,7 +80,13 @@ class Solver(implicit ectx: ExecutionContext) {
 
   // NOTE Plain distance heuristic. It's not addmisible in this case though.
   def estimate(field: PrecomputedField, goal: PrecomputedField): Double =
-    sqrt(pow((goal.coords.x - field.coords.x).toDouble, 2) + pow((goal.coords.y - field.coords.y).toDouble, 2))
+    Config.heuristic match {
+      case "dist" =>
+        sqrt(pow((goal.coords.x - field.coords.x).toDouble, 2) + pow((goal.coords.y - field.coords.y).toDouble, 2))
+
+      case "zero" =>
+        0
+    }
 
   // FIXME Imperative style sux.
   @SuppressWarnings(Array(

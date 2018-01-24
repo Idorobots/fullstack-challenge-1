@@ -11,4 +11,6 @@ object Config {
     val port = config.getInt("oc.rest.port")
   }
 
+  val heuristic = config.getString("oc.heuristic")
+
 }
