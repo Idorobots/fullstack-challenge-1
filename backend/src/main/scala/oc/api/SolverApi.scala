@@ -11,7 +11,8 @@ class SolverApi(solver: Solver) extends JsonSupport {
     (path("solve") & post) {
       entity(as[Board]) { board =>
         onComplete(solver.solve(board)) {
-          case Success(path) => complete(Response.OK(path))
+          case Success(Some(path)) => complete(Response.OK(path))
+          case Success(None) => complete(Response.NotFound)
           case Failure(ex) => complete(Response.InternalServerError(ex))
         }
       }
