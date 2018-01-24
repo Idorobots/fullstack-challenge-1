@@ -1,7 +1,36 @@
-.error-wrapper {
-  color: red;
+:root {
+  --background-color: crimson;
+  --text-color: white;
+}
 
-  & .hidden {
-    display: none;
+.error-wrapper {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  min-width: 240px;
+  min-height: 50px;
+  padding: 10px;
+
+  border-radius: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+
+  opacity: 0;
+
+  & .errorMessage {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
   }
+
+  transition: opacity 0.3s ease-in-out;
+}
+
+.visible {
+  opacity: 1;
 }

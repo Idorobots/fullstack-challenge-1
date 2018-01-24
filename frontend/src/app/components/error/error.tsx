@@ -6,7 +6,9 @@ interface Props {
 }
 
 export const Error = (props: Props) => (
-  <div className={styles.errorWrapper + " " + (props.message !== undefined ? "" : styles.hidden)}>
-    { props.message }
+  <div className={styles.errorWrapper + " " + (props.message === undefined ? "" : styles.visible)}>
+    <div className={styles.errorMessage}>
+      { props.message }
+    </div>
   </div>
 );
