@@ -12,7 +12,7 @@ class MainSpec extends FunSpec with Matchers with ScalatestRouteTest {
     it("should respond to status/ requests") {
       implicit val system: ActorSystem = ActorSystem("test")
       implicit val materializer: ActorMaterializer = ActorMaterializer()
-      implicit val routes = Route.seal(Main.routes)
+      implicit val routes = Route.seal(Main.routes(Solver()))
 
       Get(s"/api/status") ~> routes ~> check {
         status shouldBe StatusCodes.OK
@@ -22,7 +22,7 @@ class MainSpec extends FunSpec with Matchers with ScalatestRouteTest {
     it("should respond with 404 to unknown routes") {
       implicit val system: ActorSystem = ActorSystem("test")
       implicit val materializer: ActorMaterializer = ActorMaterializer()
-      implicit val routes = Route.seal(Main.routes)
+      implicit val routes = Route.seal(Main.routes(Solver()))
 
       Get(s"/api/some/other/route") ~> routes ~> check {
         status shouldBe StatusCodes.NotFound
