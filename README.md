@@ -1,7 +1,8 @@
 # obstacle-course-solver
 A full-stack-ish technical challenge for a company.
 
-## Backend part
+## Testing, building & running
+### Backend part
 To run the included tests (hopefuly I wrote some ¯\\\_(ツ)\_/¯) run either of the following commands:
 
 ```
@@ -22,7 +23,7 @@ sbt run
 docker run -p 8081:1234 -e REST_HOST=0.0.0.0 -e REST_PORT=1234 -e LOG_LEVEL=DEBUG obstacle-course-be:latest
 ```
 
-## Frontend part
+### Frontend part
 To run the tests:
 
 ```
@@ -52,6 +53,13 @@ docker run -p 8080:80 -e BACKEND_URL="localhost:8081" obstacle-course-fe:latest
 ```
 
 Alternatively, you can start a static file server inside of the `dist` directory instead of building a Docker image for the frontend.
+
+## Description of the solution
+### Frontend part
+The frontend was written in TypeScript using Preact & Mobx. Mobx was chosen because of how minimalistic it is as compared to other implementations of Flux storage - instead of large amount of boilerplate I could focus entirely on delivering features without complicating their implementation needlessly. Preact was chosen due to smaller size than some of the alternatives (the whole app takes only 132k with assets, without gzipping). The app consists of a main store & user actions, backend API service, several containers (a.k.a. smart-componnents) and a few layout components. Unfortunately time was shor, so I did not include a diagram of how it all works.
+
+### Backend part
+The backend part was written in Scala mostly in functional style although there were very few spots where that could be taken advantage of. The solver and A* implementation is unfortunately written in imperative style - functional version would be too time consuming for this challenge.
 
 ## Caveats
 Some liberties were taken during the development:
