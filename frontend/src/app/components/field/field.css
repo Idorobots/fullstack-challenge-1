@@ -2,15 +2,56 @@
   --selected-color: lightgreen;
   --field-size: 50px;
   --border-color: lightgray;
+
+  --gravel: "assets/gravel.png";
+  --boulder: "assets/boulder.png";
+  --wh-entrance: "assets/wh_entrance.png";
+  --wh-exit: "assets/wh_exit.png";
+  --end: "assets/end.png";
+  --start: "assets/start.png";
 }
 
 .field-wrapper {
-  min-width: var(--field-size);
-  min-height: var(--field-size);
-
   border-style: solid;
   border-width: 1px;
   border-color: var(--border-color);
+
+  & .field-image {
+    min-width: var(--field-size);
+    min-height: var(--field-size);
+
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  & .gravel {
+    background-image: inline(var(--gravel));
+  }
+
+  & .boulder {
+    background-image: inline(var(--boulder));
+  }
+
+  & .wh-entrance {
+    background-image: inline(var(--wh-entrance));
+  }
+
+  & .wh-exit {
+    background-image: inline(var(--wh-exit));
+  }
+
+  & .start {
+    background-image: inline(var(--start));
+  }
+
+  & .end {
+    background-image: inline(var(--end));
+  }
+
+  & .unknown {
+    background-color: crimson;
+  }
 }
 
 .selected {
