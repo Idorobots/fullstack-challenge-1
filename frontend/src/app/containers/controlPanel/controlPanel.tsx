@@ -36,7 +36,7 @@ export class ControlPanel extends preact.Component<Props, any> {
 
         <Button value="Solve!"
                 onClick={() => console.log("Path finding not yet implemented!")}
-                isEnabled={false} />
+                isEnabled={this.props.store.solveEnabled} />
       </div>
     );
   }

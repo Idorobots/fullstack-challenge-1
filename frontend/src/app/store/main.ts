@@ -24,6 +24,9 @@ export class MainStore {
   @observable
   board: Array<Field>;
 
+  @observable
+  solveEnabled: boolean;
+
   constructor(dimX: number, dimY: number, fields: Array<Field>) {
     this.error = undefined;
 
@@ -36,6 +39,8 @@ export class MainStore {
     };
 
     this.clearBoard(fields[0]);
+
+    this.solveEnabled = false;
   }
 
   clearBoard(field: Field) {
@@ -55,5 +60,13 @@ export class MainStore {
     const starts = this.board.filter((field) => field.type === "start");
     const ends = this.board.filter((field) => field.type === "end");
     return starts.length <= 1 && ends.length <= 1;
+  }
+
+  hasStart(): boolean {
+    return this.board.filter((field) => field.type === "start").length > 0;
+  }
+
+  hasEnd(): boolean {
+    return this.board.filter((field) => field.type === "end").length > 0;
   }
 }

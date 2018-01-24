@@ -13,9 +13,17 @@ export class UserActions {
     const oldValue = this.store.getBoard(x, y);
     this.store.setBoard(x, y, this.store.selectedField);
 
+    // Check error conditions.
     if (!this.store.checkSanity()) {
       this.store.setBoard(x, y, oldValue);
       this.errored("I can't let you do that...");
+    }
+
+    // Check solvability conditions.
+    if (this.store.hasStart() && this.store.hasEnd()) {
+      this.solvingEnabled(true);
+    } else {
+      this.solvingEnabled(false);
     }
   }
 
@@ -35,6 +43,11 @@ export class UserActions {
     setTimeout(() => {
       this.store.error = undefined;
     }, 3000);
+  }
+
+  @action.bound
+  solvingEnabled(toggle: boolean) {
+    this.store.solveEnabled = toggle;
   }
 
 }
