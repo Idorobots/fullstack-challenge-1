@@ -1,4 +1,29 @@
 .board-wrapper {
-  width: 100%;
-  height: 100%;
+  & .board {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+
+    & .board-row {
+      width: 100%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-items: center;
+
+      & .board-field {
+        min-width: 50px;
+        min-height: 50px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: lightgray;
+      }
+    }
+  }
+
 }
