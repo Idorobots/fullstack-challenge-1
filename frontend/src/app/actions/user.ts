@@ -17,7 +17,8 @@ export class UserActions {
     // Check error conditions.
     if (!this.store.checkSanity()) {
       this.store.setBoard(x, y, oldValue);
-      this.errored("I can't let you do that...");
+      this.errored("I'm afraid I can't let you do that...");
+      return;
     }
 
     // Reset solved path as it might have changed.
