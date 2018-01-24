@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import { Dim, Field } from "../services/api";
+import { Coords, Dim, Field } from "../services/api";
 
 export class MainStore {
   @observable
@@ -20,6 +20,9 @@ export class MainStore {
   @observable
   solveEnabled: boolean;
 
+  @observable
+  solvedPath: Array<Coords>;
+
   constructor(dim: Dim, fields: Array<Field>) {
     this.error = undefined;
 
@@ -27,6 +30,7 @@ export class MainStore {
     this.selectedField = fields[0];
     this.boardDim = dim;
     this.solveEnabled = false;
+    this.solvedPath = [];
 
     this.clearBoard(fields[0]);
   }

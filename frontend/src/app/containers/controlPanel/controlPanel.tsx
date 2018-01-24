@@ -9,7 +9,7 @@ import * as styles from "./controlPanel.css";
 
 interface Props {
   store: MainStore;
-  api: ApiService; // TODO Connect to the solve button.
+  api: ApiService;
 }
 
 @observer
@@ -43,7 +43,14 @@ export class ControlPanel extends preact.Component<Props, any> {
         </div>
         <div className={styles.controlWrapper}>
           <Button value="Solve!"
-                  onClick={() => console.log("Path finding not yet implemented!")}
+                  onClick={() => {
+                    this.props.api.solve(this.props.store.boardDim, this.props.store.board).then((path) => {
+                      this.userActions.boardSolved(path);
+                    }).catch((error) => {
+                      console.error(error);
+                      this.userActions.errored("The board cannot be solved!");
+                    });
+                  }}
                   isEnabled={this.props.store.solveEnabled} />
         </div>
       </div>

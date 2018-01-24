@@ -33,7 +33,7 @@ export class Board extends preact.Component<Props, any> {
                   <td className={styles.boardField}>
                     <Field contents={this.props.store.getBoard(x, y)}
                            onClick={() => this.userActions.boardClicked(x, y)}
-                           isSelected={false} />
+                           isSelected={this.props.store.solvedPath.find((c) => c.x === x && c.y === y) !== undefined} />
                   </td>
                 )
               ))

@@ -10,13 +10,15 @@ export interface Dim {
   y: number;
 }
 
+export type Coords = Dim;
+
 export interface Config {
   availableFields: Array<Field>;
   boardDim: Dim;
 }
 
 export class ApiService {
-  baseUrl: string;
+  private baseUrl: string;
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -55,4 +57,15 @@ export class ApiService {
       });
     });
   }
+
+  solve(dim: Dim, board: Array<Field>): Promise<Array<Coords>> {
+    return fetch("//" + this.baseUrl + "/api/solve", {
+      method: "POST",
+      body: JSON.stringify({
+        boardDim: dim,
+        board
+      })
+    }).then((response) => response.json());
+  }
+
 }

@@ -1,5 +1,5 @@
 import { action } from "mobx";
-import { Field } from "../services/api";
+import { Coords, Field } from "../services/api";
 import { MainStore } from "../store/main";
 
 export class UserActions {
@@ -20,6 +20,9 @@ export class UserActions {
       this.errored("I can't let you do that...");
     }
 
+    // Reset solved path as it might have changed.
+    this.store.solvedPath = [];
+
     // Check solvability conditions.
     if (this.store.hasStart() && this.store.hasEnd()) {
       this.solvingEnabled(true);
@@ -36,6 +39,7 @@ export class UserActions {
   @action.bound
   boardCleared() {
     this.store.clearBoard(this.store.availableFields[0]);
+    this.store.solvedPath = [];
     this.solvingEnabled(false);
   }
 
@@ -50,6 +54,11 @@ export class UserActions {
   @action.bound
   solvingEnabled(toggle: boolean) {
     this.store.solveEnabled = toggle;
+  }
+
+  @action.bound
+  boardSolved(path: Array<Coords>) {
+    this.store.solvedPath = path;
   }
 
 }

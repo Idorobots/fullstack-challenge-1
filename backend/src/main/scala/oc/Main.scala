@@ -33,8 +33,9 @@ object Main {
 
   def routes: Route =
     (cors() & pathPrefix("api")) {
-      (path("hello") & get) {
-        complete(Response.OK("[]"))
+      (path("solve") & post) {
+        // TODO Parse entity, prepare graph, solve it & return path.
+        complete(Response.OK("[{ \"x\": 0, \"y\": 0 }]"))
       }
     }
 
