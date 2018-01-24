@@ -1,5 +1,5 @@
 import { action } from "mobx";
-import { Coords, Field } from "../services/api";
+import { Config, Coords, Field } from "../services/api";
 import { MainStore } from "../store/main";
 
 export class UserActions {
@@ -62,4 +62,8 @@ export class UserActions {
     this.store.solvedPath = path;
   }
 
+  @action.bound
+  configLoaded(config: Config) {
+    this.store.setConfig(config);
+  }
 }

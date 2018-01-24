@@ -38,7 +38,7 @@ export class Board extends preact.Component<Props, any> {
                 )
               ))
               }
-              </tr>
+            </tr>
           ))
         }
         </table>
