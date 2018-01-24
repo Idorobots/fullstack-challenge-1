@@ -35,6 +35,7 @@ export class UserActions {
   @action.bound
   boardCleared() {
     this.store.clearBoard(this.store.availableFields[0]);
+    this.solvingEnabled(false);
   }
 
   @action.bound
