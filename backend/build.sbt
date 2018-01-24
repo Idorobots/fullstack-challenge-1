@@ -6,19 +6,20 @@ val akkaVsn = "2.5.9"
 val akkaHttpVsn = "10.0.11"
 
 libraryDependencies ++= Seq(
-  "ch.megard"                  %% "akka-http-cors"       % "0.2.2",
-  "com.typesafe"               % "config"                % "1.3.0",
-  "com.typesafe.akka"          %% "akka-actor"           % akkaVsn,
-  "com.typesafe.akka"          %% "akka-http"            % akkaHttpVsn,
-  "de.heikoseeberger"          %% "akka-http-json4s"     % "1.20.0-RC1",
-  "org.json4s"                 %% "json4s-native"        % "3.5.0",
-  "org.json4s"                 %% "json4s-ext"           % "3.5.0"
+  "ch.megard"           %% "akka-http-cors"       % "0.2.2",
+  "com.beachape"        %% "enumeratum-json4s"    % "1.5.13",
+  "com.typesafe"        %  "config"               % "1.3.0",
+  "com.typesafe.akka"   %% "akka-actor"           % akkaVsn,
+  "com.typesafe.akka"   %% "akka-http"            % akkaHttpVsn,
+  "de.heikoseeberger"   %% "akka-http-json4s"     % "1.20.0-RC1",
+  "org.json4s"          %% "json4s-native"        % "3.5.0",
+  "org.json4s"          %% "json4s-ext"           % "3.5.0"
 )
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka"   %% "akka-testkit"         % akkaVsn % "test",
   "com.typesafe.akka"   %% "akka-http-testkit"    % akkaHttpVsn % "test",
-  "org.scalatest"       %% "scalatest" % "3.0.1"  % "test"
+  "org.scalatest"       %% "scalatest"            % "3.0.1"  % "test"
 )
 
 scalacOptions ++= Seq(
