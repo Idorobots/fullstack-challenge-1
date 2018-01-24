@@ -57,3 +57,9 @@ Alternatively, you can start a static file server inside of the `dist` directory
 Some liberties were taken during the development:
 
 - Frontend isn't responsive nor follows any coherent desings - I'm not much of a UI designer, so I didn't bother with the looks as much as with the inner workings down the stack.
+
+- The A* implementation on the backend is written in an imperative way making it pretty ugly.
+
+- The default heuristic for the A* algorithm is not addmissible in presence of Worm Holes making it find sub-optimal paths.
+
+- The  code is missing a lot of tests, that's mostly because of lack of time for this assignment.

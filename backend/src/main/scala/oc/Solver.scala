@@ -44,30 +44,39 @@ class Solver(implicit ectx: ExecutionContext) {
     } yield path
   }
 
-  def getNeighbour(board: PrecomputedBoard, x: Long, y: Long): Option[PrecomputedField] =
+  private def getNeighbour(board: PrecomputedBoard, x: Long, y: Long): Option[PrecomputedField] =
     if (x < 0 || y < 0 || x >= board.dims.x || y >= board.dims.y) {
       None
     } else {
       Some(board.fields((y * board.dims.x + x).toInt))
     }
 
-  // NOTE Simple 8-way neighbourhood with wormholes.
   // FIXME Add cats.Eq instance for FieldType.
   @SuppressWarnings(Array("org.wartremover.warts.Equals"))
-  def neighbours(board: PrecomputedBoard, field: PrecomputedField): Seq[PrecomputedField] =
+  private def getNeighbours(board: PrecomputedBoard, coords: Seq[Coords]): Seq[PrecomputedField] =
+    coords.map(coord => getNeighbour(board, coord.x, coord.y-1))
+      .map(_.toList)
+      .flatten
+      .filter(_.field.`type` != FieldType.Boulder)
+
+  // NOTE Simple 8-way neighbourhood with wormholes.
+  def neighbours(board: PrecomputedBoard, field: PrecomputedField): Seq[PrecomputedField] = {
+    val defaultNeighbours = getNeighbours(board, Seq(
+        Coords(field.coords.x-1, field.coords.y-1),
+        Coords(field.coords.x, field.coords.y-1),
+        Coords(field.coords.x+1, field.coords.y-1),
+        Coords(field.coords.x-1, field.coords.y),
+        Coords(field.coords.x+1, field.coords.y),
+        Coords(field.coords.x-1, field.coords.y+1),
+        Coords(field.coords.x, field.coords.y+1),
+        Coords(field.coords.x+1, field.coords.y+1)
+    ))
+
     field.field.`type` match {
-      case FieldType.WHEntrance => board.holes
-      case _ => Seq(
-        getNeighbour(board, field.coords.x-1, field.coords.y-1),
-        getNeighbour(board, field.coords.x, field.coords.y-1),
-        getNeighbour(board, field.coords.x+1, field.coords.y-1),
-        getNeighbour(board, field.coords.x-1, field.coords.y),
-        getNeighbour(board, field.coords.x+1, field.coords.y),
-        getNeighbour(board, field.coords.x-1, field.coords.y+1),
-        getNeighbour(board, field.coords.x, field.coords.y+1),
-        getNeighbour(board, field.coords.x+1, field.coords.y+1),
-      ).map(_.toList).flatten.filter(_.field.`type` != FieldType.Boulder)
+      case FieldType.WHEntrance => board.holes ++ defaultNeighbours
+      case _ => defaultNeighbours
     }
+  }
 
   // NOTE Plain distance heuristic. It's not addmisible in this case though.
   def estimate(field: PrecomputedField, goal: PrecomputedField): Double =
