@@ -13,7 +13,7 @@ export function onLoad(config: Config) {
   document.body.appendChild(container);
 
   // TODO Could be initialized on backend.
-  const mainStore = new MainStore(10, 10, [{
+  const mainStore = new MainStore(20, 15, [{
     type: "empty",
     weight: 0
   }, {
