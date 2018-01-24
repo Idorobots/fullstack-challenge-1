@@ -17,7 +17,6 @@ class SolverApi(solver: Solver) extends JsonSupport {
         }
       }
     }
-
 }
 
 object SolverApi {

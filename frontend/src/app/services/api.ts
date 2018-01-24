@@ -34,16 +34,16 @@ export class ApiService {
         },
         availableFields: [{
           type: "empty",
-          weight: 0
+          weight: 1
         }, {
           type: "start",
           weight: 0
         }, {
           type: "end",
-          weight: 0
+          weight: 1
         }, {
           type: "gravel",
-          weight: 0
+          weight: 2
         }, {
           type: "boulder",
           weight: 0
@@ -52,7 +52,7 @@ export class ApiService {
           weight: 0
         }, {
           type: "wh_exit",
-          weight: 0
+          weight: 1
         }] as Array<Field>
       });
     });

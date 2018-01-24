@@ -18,8 +18,8 @@ object FieldType extends Enum[FieldType] {
 
 final case class Field(`type`: FieldType, weight: Float);
 
-final case class Dim(x: Int, y: Int);
+final case class Dim(x: Long, y: Long);
 
-final case class Coords(x: Int, y: Int);
+final case class Coords(x: Long, y: Long);
 
 final case class Board(boardDim: Dim, board: Array[Field]);
