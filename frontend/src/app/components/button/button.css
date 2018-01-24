@@ -1,5 +1,24 @@
+:root {
+  --button-color: lightgray;
+  --disabled-color: whitesmoke;
+  --hover-color: gainsboro;
+}
+
 .button-wrapper {
   & > button {
     cursor: pointer;
+    border-radius: 5px;
+    border-width: 0;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--button-color);
+
+    &:disabled {
+      background-color: var(--disabled-color);
+    }
+
+    &:enabled:hover {
+      background-color: var(--hover-color);
+    }
   }
 }
