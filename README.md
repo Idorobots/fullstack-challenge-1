@@ -1,6 +1,9 @@
 # obstacle-course-solver
 A full-stack-ish technical challenge for a company.
 
+The goal of the challenge was to create an obstactle course solver that works on a grid of interconnected fields with various, well obstacles on it. Additional task was to add support for "wormholes" - fields that connect to another, distant field - and ensure that the solver can handle these.
+The solution is an implementation of the field editor along with a backend A*-based solver. Two heuristics are provided, "distance" and "zero" that handles the wormhole use case.
+
 ## Testing, building & running
 ### Backend part
 To run the included tests (hopefuly I wrote some ¯\\\_(ツ)\_/¯) run either of the following commands:
