@@ -30,10 +30,10 @@ class Solver(implicit ectx: ExecutionContext) {
       end <- fields.find(_.field.`type` == FieldType.End)
     } yield PrecomputedBoard(
       board.boardDim,
-      fields,
+      fields.toIndexedSeq,
       start,
       end,
-      fields.filter(_.field.`type` == FieldType.WHExit)
+      fields.toIndexedSeq.filter(_.field.`type` == FieldType.WHExit)
     )
   }
 
@@ -95,7 +95,8 @@ class Solver(implicit ectx: ExecutionContext) {
     "org.wartremover.warts.MutableDataStructures",
     "org.wartremover.warts.NonUnitStatements",
     "org.wartremover.warts.Return",
-    "org.wartremover.warts.While"
+    "org.wartremover.warts.While",
+    "org.wartremover.warts.Recursion"
   ))
   private def aStar(board: PrecomputedBoard): Option[Path] = {
       val cameFrom = scala.collection.mutable.Map.empty[PrecomputedField, PrecomputedField]
