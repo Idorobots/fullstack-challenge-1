@@ -21,7 +21,7 @@
     "css-modulesify": "^0.28.0",
     "cssnano": "^3.10.0",
     "glob": "^7.1.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-connect": "^5.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.6.0",
@@ -47,7 +47,7 @@
     "typed-css-modules": "^0.3.0",
     "typescript": "^2.4.2",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "mobx": "^3.2.2",

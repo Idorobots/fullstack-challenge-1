@@ -30,50 +30,6 @@ module.exports = {
   postcss
 };
 
-gulp.task("bundle", ["style-type-definitions", "lint"], () => {
-  const prod = process.env.ENV === "prod";
-  if (prod){
-    postcss.push(require("cssnano"));
-  }
-  const bundle = browserify("src/app/main.tsx", { debug: !prod })
-    .plugin(require("tsify"))
-    .plugin(require("css-modulesify"), {
-      before: postcss,
-      global: true,
-      output: "./dist/main.css",
-      rootDir: __dirname,
-    })
-    .bundle()
-    .on("error", gutil.log)
-    .pipe(source("main.js"))
-    .pipe(buffer());
-  if (prod) {
-    bundle
-      .pipe(uglify())
-      .on('error', gutil.log);
-  } else {
-    bundle
-      .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(sourcemaps.write());
-  }
-  bundle
-    .pipe(gulp.dest("./dist/"))
-    .pipe(connect.reload());
-});
-
-gulp.task("tslint", () => {
-  gulp
-    .src(["src/**/*.ts", "src/**/*.tsx"])
-    .on("error", gutil.log)
-    .pipe(tslint({
-      fix: true,
-      formatter: "verbose",
-    }))
-    .pipe(tslint.report());
-});
-
-gulp.task("lint", ["tslint"]);
-
 gulp.task("style-type-definitions", (done) => {
   let creator = new DtsCreator({
     camelCase: true,
@@ -102,8 +58,53 @@ gulp.task("style-type-definitions", (done) => {
   });
 });
 
+gulp.task("tslint", () => {
+  return gulp
+    .src(["src/**/*.ts", "src/**/*.tsx"])
+    .on("error", gutil.log)
+    .pipe(tslint({
+      fix: true,
+      formatter: "verbose",
+    }))
+    .pipe(tslint.report());
+});
+
+gulp.task("lint", gulp.series("tslint"));
+
+gulp.task("bundle", gulp.series(gulp.parallel("style-type-definitions", "lint"), () => {
+  const prod = process.env.ENV === "prod";
+  if (prod){
+    postcss.push(require("cssnano"));
+  }
+  const bundle = browserify("src/app/main.tsx", { debug: !prod })
+    .plugin(require("tsify"))
+    .plugin(require("css-modulesify"), {
+      before: postcss,
+      global: true,
+      output: "./dist/main.css",
+      rootDir: __dirname,
+    })
+    .bundle()
+    .on("error", gutil.log)
+    .pipe(source("main.js"))
+    .pipe(buffer());
+  if (prod) {
+    bundle
+      .pipe(uglify())
+      .on('error', gutil.log);
+  } else {
+    bundle
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(sourcemaps.write());
+  }
+  return bundle
+    .pipe(gulp.dest("./dist/"))
+    .pipe(connect.reload());
+}));
+
+
 gulp.task("config", () => {
-  gulp
+  return gulp
     .src(["src/config.js"])
     .on("error", gutil.log)
     .pipe(gulp.dest("./dist/"))
@@ -111,7 +112,7 @@ gulp.task("config", () => {
 });
 
 gulp.task("html", () => {
-  gulp
+  return gulp
     .src(["src/index.html"])
     .on("error", gutil.log)
     .pipe(gulp.dest("./dist/"))
@@ -127,29 +128,29 @@ gulp.task("server", () => {
   });
 });
 
-gulp.task("watch", ["html", "config", "bundle", "server"], () => {
-  gulp.watch("src/**/*.*", { debounceDelay: 2000 }, ["html", "config", "bundle"]);
-});
+gulp.task("watch", gulp.series(gulp.parallel("html", "config", "bundle", "server"), () => {
+  return gulp.watch("src/**/*.*", { debounceDelay: 2000 }, ["html", "config", "bundle"]);
+}));
 
-gulp.task("default", ["html", "config", "bundle"]);
+gulp.task("default", gulp.parallel("html", "config", "bundle"));
 
-gulp.task("test", ["style-type-definitions"], (done) => {
+gulp.task("test", gulp.series("style-type-definitions", (done) => {
   new karmaServer({
     configFile: __dirname + "/karma.conf.js",
     singleRun: true,
   }, done).start();
-});
+}));
 
-gulp.task("test-ci", ["style-type-definitions"], (done) => {
+gulp.task("test-ci", gulp.series("style-type-definitions", (done) => {
   new karmaServer({
     configFile: __dirname + "/karma.conf.js",
     singleRun: true,
     browsers: ["HeadlessChrome"],
   }, done).start();
-});
+}));
 
-gulp.task("test-watch", ["style-type-definitions"], (done) => {
+gulp.task("test-watch", gulp.series("style-type-definitions", (done) => {
   new karmaServer({
     configFile: __dirname + "/karma.conf.js",
   }, done).start();
-});
+}));
