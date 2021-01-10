@@ -22,4 +22,7 @@ final case class Dim(x: Long, y: Long);
 
 final case class Coords(x: Long, y: Long);
 
+@SuppressWarnings(Array(
+  "org.wartremover.warts.ArrayEquals"
+))
 final case class Board(boardDim: Dim, board: Array[Field]);

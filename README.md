@@ -4,6 +4,10 @@ A full-stack-ish technical challenge for a company.
 The goal of the challenge was to create an obstactle course solver that works on a grid of interconnected fields with various, well obstacles on it. Additional task was to add support for "wormholes" - fields that connect to another, distant field - and ensure that the solver can handle these.
 The solution is an implementation of the field editor along with a backend A*-based solver. Two heuristics are provided, "distance" and "zero" that handles the wormhole use case.
 
+Here's how it looks:
+
+![](./ui.png)
+
 ## Testing, building & running
 ### Backend part
 To run the included tests (hopefuly I wrote some ¯\\\_(ツ)\_/¯) run either of the following commands:
@@ -19,7 +23,7 @@ sbt clean-compile
 sbt docker:publishLocal
 ```
 
-Ensure that the Docker daemon is up an running in order to create an image. The image will be based on `phusion:basebox` so it'll download a bit of crap on the first run. To then run the backend execute either command:
+Ensure that the Docker daemon is up an running in order to create an image. The image will be based on `openjdk:8` so it'll download a bit of crap on the first run. To then run the backend execute either command:
 
 ```
 sbt run

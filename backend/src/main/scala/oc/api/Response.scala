@@ -11,5 +11,5 @@ object Response extends JsonSupport {
   def OK(body: AnyRef): HttpResponse =
     HttpResponse(StatusCodes.OK, entity = HttpEntity(`application/json`, write(body)))
 
-  val NotFound = HttpResponse(StatusCodes.NotFound)
+  val NotFound: HttpResponse = HttpResponse(StatusCodes.NotFound)
 }

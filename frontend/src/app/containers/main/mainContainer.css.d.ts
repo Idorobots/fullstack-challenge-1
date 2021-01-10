@@ -1,6 +1,10 @@
-export const mainWrapper: string;
-export const spin: string;
-export const game: string;
-export const visible: string;
-export const hidden: string;
-export const spinner: string;
+declare const styles: {
+  readonly "mainWrapper": string;
+  readonly "spin": string;
+  readonly "game": string;
+  readonly "visible": string;
+  readonly "hidden": string;
+  readonly "spinner": string;
+};
+export = styles;
+
