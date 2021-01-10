@@ -1,4 +1,4 @@
-import { observer } from "mobx-observer";
+import { observer } from "mobx-preact";
 import * as preact from "preact";
 import { UserActions } from "../../actions/user";
 import { Button } from "../../components/button/button";

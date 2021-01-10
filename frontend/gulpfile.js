@@ -3,7 +3,7 @@
 const browserify = require("browserify");
 const buffer = require("vinyl-buffer");
 const connect = require("gulp-connect");
-const DtsCreator = require("typed-css-modules");
+const DtsCreator = require("typed-css-modules").default;
 const glob = require("glob");
 const gulp = require("gulp");
 const gutil = require("gulp-util");
@@ -17,13 +17,13 @@ const uglify = require("gulp-uglify");
 const postcss = [ // order matters
   require("postcss-cssnext"),
   require("postcss-custom-properties"),
-  require("postcss-import"),
+  //require("postcss-import"), // FIXME
   require("postcss-color-function"),
   require("postcss-assets")({
     loadPaths: ["src/"]
   }),
   require("postcss-camel-case"),
-  require("postcss-modules-local-by-default"),
+  //require("postcss-modules-local-by-default"), // FIXME
 ];
 
 module.exports = {
@@ -45,12 +45,14 @@ gulp.task("style-type-definitions", (done) => {
       .all(files.map((f) => {
         return creator
           .create(f)
-          .then((content) => content.writeFile())
           .then((content) => {
-            console.log("Wrote " + gutil.colors.green(content.outputFilePath));
-            content.messageList.forEach((message) => {
-              console.warn(gutil.colors.yellow("[Warn] " + message));
-            });
+            console.log("Writing " + gutil.colors.green(content.outputFilePath));
+            if(!!content.messageList) {
+              content.messageList.forEach((message) => {
+                console.warn(gutil.colors.yellow("[Warn] " + message));
+              });
+            }
+            content.writeFile()
           })
           .catch((reason) => console.error(gutil.colors.red("[Error] " + reason)));
       }))

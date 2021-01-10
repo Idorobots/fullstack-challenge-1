@@ -1,4 +1,4 @@
-import { observer } from "mobx-observer";
+import { observer } from "mobx-preact";
 import * as preact from "preact";
 import { Error } from "../../components/error/error";
 import { ApiService } from "../../services/api";

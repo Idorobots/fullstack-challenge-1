@@ -1,4 +1,8 @@
-export const boardWrapper: string;
-export const board: string;
-export const boardRow: string;
-export const boardField: string;
+declare const styles: {
+  readonly "boardWrapper": string;
+  readonly "board": string;
+  readonly "boardRow": string;
+  readonly "boardField": string;
+};
+export = styles;
+

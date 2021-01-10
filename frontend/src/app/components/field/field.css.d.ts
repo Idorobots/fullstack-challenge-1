@@ -1,10 +1,14 @@
-export const fieldWrapper: string;
-export const fieldImage: string;
-export const gravel: string;
-export const boulder: string;
-export const whEntrance: string;
-export const whExit: string;
-export const start: string;
-export const end: string;
-export const unknown: string;
-export const selected: string;
+declare const styles: {
+  readonly "fieldWrapper": string;
+  readonly "fieldImage": string;
+  readonly "gravel": string;
+  readonly "boulder": string;
+  readonly "whEntrance": string;
+  readonly "whExit": string;
+  readonly "start": string;
+  readonly "end": string;
+  readonly "unknown": string;
+  readonly "selected": string;
+};
+export = styles;
+

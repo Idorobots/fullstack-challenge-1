@@ -1,3 +1,7 @@
-export const errorWrapper: string;
-export const errorMessage: string;
-export const visible: string;
+declare const styles: {
+  readonly "errorWrapper": string;
+  readonly "errorMessage": string;
+  readonly "visible": string;
+};
+export = styles;
+

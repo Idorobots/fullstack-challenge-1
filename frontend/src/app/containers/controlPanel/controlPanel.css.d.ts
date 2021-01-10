@@ -1,3 +1,7 @@
-export const panelWrapper: string;
-export const controlWrapper: string;
-export const separator: string;
+declare const styles: {
+  readonly "panelWrapper": string;
+  readonly "controlWrapper": string;
+  readonly "separator": string;
+};
+export = styles;
+
